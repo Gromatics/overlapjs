@@ -1,5 +1,5 @@
 # OverlapJs
-OverlapJs is a TypeScript library designed to effortlessly handle overlaps between two HTML elements. It provides a simple yet powerful solution for detecting and filling the intersection area of two elements on a web page.
+OverlapJs is a lightweight and versatile npm package designed to seamlessly blend and overlap two HTML div elements, allowing you to effortlessly integrate images or colors into the overlapping areas.
 
 ![Draggable](readme/draggable.gif)
 
@@ -43,7 +43,7 @@ import { Overlap } from 'overlap-js';
 Contributions are welcome! Feel free to open issues or submit pull requests on the GitHub repository.
 
 ## License
-OverlapJs is licensed under the MIT License.
+OverlapJs is licensed under the ISC License.
 
 ## Currenly not supported
 - Scale on top and bottom element. If you want to use css scale, you can scale the container element
