@@ -17,15 +17,23 @@ You can install OverlapJs via npm:
 ## Usage
 Using OverlapJs in your TypeScript project is straightforward:
 
-1. Import the library:
+1. Create a container element where you want the overlapping to happen. In this element, add a top div and a bottom div.
+```html
+<div class="overlap-container">
+    <div class="overlap-bottom"></div>
+    <div class="overlap-top"></div>
+</div>
+```
+
+2. Import the library:
 ```typescript
 import { Overlap } from 'overlap-js';
 ```
 
-2. Create an instance of Overlap and specify the config object:
+3. Create an instance of Overlap and specify the config object:
 ```typescript
  new Overlap({
-    container: '.container',
+    container: '.overlap-container',
     topElement: '.overlap-top',
     bottomElement: '.overlap-bottom',
     overlapStyle: {
