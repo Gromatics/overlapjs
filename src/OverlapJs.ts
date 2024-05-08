@@ -48,7 +48,6 @@ export class OverlapJs {
     }
 
     elementListners() {
-
         if (this.topElement && this.bottomElement && this.overlayDiv) {
             this.elementListenerInterval = setInterval(() => {
                 this.checkPosition(this.bottomElement as HTMLElement, this.bottomElementPostion);
@@ -71,7 +70,6 @@ export class OverlapJs {
             position.offsetHeight = element.offsetHeight
             position.transform = element.style.transform
             this.render();
-            console.log('div moved');
         }
     }
 
@@ -118,7 +116,6 @@ export class OverlapJs {
                 if (this.config.overlapClass) {
                     this.overlayDiv.className += " " + this.config.overlapClass;
                 }
-
 
                 this.overlayDiv.style.display = 'block';
                 this.overlayDiv.style.position = 'absolute';
