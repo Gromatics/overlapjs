@@ -24,7 +24,7 @@
 // setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 
 import './style.css'
-import { overlapJs } from './overlap-js.ts'
+import { overlapjs } from './overlapjs.ts'
 import { dragElement } from './drag-element.ts'
 
 const topDiv = document.getElementsByClassName('overlap-top')[0] as HTMLElement;
@@ -38,4 +38,14 @@ if(bottomDiv) {
 
 
 
-overlapJs('.overlap', '.overlap-top', '.overlap-bottom', {backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: 'url(https://images.unsplash.com/photo-1714770474609-2ba25a6c3d53?q=80&w=540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)'});
+overlapjs({
+    container: '.overlap',
+    topElement: '.overlap-top',
+    bottomElement: '.overlap-bottom',
+    overlapStyle: {
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundImage: 'url(https://source.unsplash.com/random/300×300?nature)'
+    },
+    overlapClass: 'bg-purple shadow'
+});
