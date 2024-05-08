@@ -1,6 +1,6 @@
 import {OverlapConfig, OverlapPosition} from "./decs";
 
-export class OverlapJs {
+export class Overlap {
 
     config: OverlapConfig;
     containerElement: HTMLElement | null = null;

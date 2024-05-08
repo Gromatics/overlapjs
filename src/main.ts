@@ -1,9 +1,8 @@
 import './style.css'
-import { OverlapJs } from './OverlapJs.ts'
+import { Overlap } from './overlap-js.ts'
 import { dragElement } from './drag-element.ts'
 
-
- new OverlapJs({
+ new Overlap({
     container: '.drag-container',
     topElement: '.overlap-top',
     bottomElement: '.overlap-bottom',
@@ -21,8 +20,7 @@ if(bottomDiv) {
     dragElement(bottomDiv);
 }
 
-
-new OverlapJs({
+new Overlap({
     container: '.rotate-container',
     topElement: '.overlap2-top',
     bottomElement: '.overlap2-bottom',
