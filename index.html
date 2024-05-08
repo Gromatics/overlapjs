@@ -7,9 +7,14 @@
     <title>Vite + TS</title>
 </head>
 <body>
-<div class="overlap" style="padding-left: 100px; padding-top: 100px; position: relative">
-    <div class="overlap-bottom block" style="background-color: red; left: 30%; top: 160%;"></div>
-    <div class="overlap-top block" style="background-color: blue; left: 20%; top: 30%;"></div>
+<div class="drag-container" style="height: 600px; padding-left: 100px; padding-top: 100px; position: relative">
+    <div class="overlap-bottom block"  style="background-color: red; left: 150px; top: 150px;"></div>
+    <div class="overlap-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>
+</div>
+
+<div class="rotate-container" style="padding-left: 100px; padding-top: 100px; position: relative">
+    <div class="overlap2-bottom block"  style="background-color: red; left: 150px; top: 150px; transition: all 1s ease-out;"></div>
+    <div class="overlap2-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>
 </div>
 
 <script type="module" src="/src/main.ts"></script>
