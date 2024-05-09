@@ -31,6 +31,9 @@ export class Overlap {
     constructor(config: OverlapConfig) {
         this.config = config;
         this.init();
+        if (this.topElement && this.bottomElement) {
+            this.elementsInViewport = this.elementIsVisibleInViewport(this.topElement, true) || this.elementIsVisibleInViewport(this.bottomElement, true)
+        }
         this.elementListners();
         this.windowListeners();
         this.render();
@@ -62,9 +65,9 @@ export class Overlap {
             this.elementListenerInterval = setInterval(() => {
                 this.checkPosition(this.bottomElement as HTMLElement, this.bottomElementPostion);
                 this.checkPosition(this.topElement as HTMLElement, this.topElementPostion);
-            }, 10);
+            });
         } else {
-            if(this.elementListenerInterval) {
+            if (this.elementListenerInterval) {
                 clearInterval(this.elementListenerInterval);
             }
         }
