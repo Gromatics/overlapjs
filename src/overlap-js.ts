@@ -2,6 +2,7 @@ import {OverlapConfig, OverlapPosition} from "./decs";
 
 export class Overlap {
 
+    elementsInViewport = false;
     config: OverlapConfig;
     containerElement: HTMLElement | null = null;
     topElement: HTMLElement | null = null;
@@ -9,7 +10,7 @@ export class Overlap {
     overlayDiv: HTMLElement | null = null;
     overlayDivInitialised = false;
 
-    elementListenerInterval: number | null = null;
+    elementListenerInterval: any = null;
 
     topElementPostion: OverlapPosition = {
         offsetTop: 0,
@@ -31,7 +32,7 @@ export class Overlap {
         this.config = config;
         this.init();
         this.elementListners();
-        this.resizeListeners();
+        this.windowListeners();
         this.render();
     }
 
@@ -43,16 +44,29 @@ export class Overlap {
         return isInHoriztonalBounds && isInVerticalBounds;
     }
 
-    resizeListeners() {
+    windowListeners() {
         addEventListener("resize", () => this.render());
+        addEventListener("scroll", () => {
+            if (this.topElement && this.bottomElement) {
+                const elementsInViewport = this.elementIsVisibleInViewport(this.topElement, true) || this.elementIsVisibleInViewport(this.bottomElement, true)
+                if (elementsInViewport !== this.elementsInViewport) {
+                    this.elementsInViewport = elementsInViewport;
+                    this.elementListners();
+                }
+            }
+        });
     }
 
     elementListners() {
-        if (this.topElement && this.bottomElement && this.overlayDiv) {
+        if (this.elementsInViewport && this.topElement && this.bottomElement && this.overlayDiv) {
             this.elementListenerInterval = setInterval(() => {
                 this.checkPosition(this.bottomElement as HTMLElement, this.bottomElementPostion);
                 this.checkPosition(this.topElement as HTMLElement, this.topElementPostion);
             }, 10);
+        } else {
+            if(this.elementListenerInterval) {
+                clearInterval(this.elementListenerInterval);
+            }
         }
     }
 
@@ -72,6 +86,16 @@ export class Overlap {
             this.render();
         }
     }
+
+    elementIsVisibleInViewport = (el: Element, partiallyVisible = false) => {
+        const {top, left, bottom, right} = el.getBoundingClientRect();
+        const {innerHeight, innerWidth} = window;
+        return partiallyVisible
+            ? ((top > 0 && top < innerHeight) ||
+                (bottom > 0 && bottom < innerHeight)) &&
+            ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
+            : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+    };
 
     init() {
         this.containerElement = document.querySelector(this.config.container);
@@ -100,7 +124,7 @@ export class Overlap {
                 const cssArr = this.bottomElement.style.cssText.split(";");
                 cssArr.forEach((rule) => {
                     const keyVal = rule.split(":");
-                    if(this.overlayDiv && keyVal.length == 2) {
+                    if (this.overlayDiv && keyVal.length == 2) {
                         this.overlayDiv.style[keyVal[0].trim() as keyof object] = keyVal[1].trim();
                     }
                 })
