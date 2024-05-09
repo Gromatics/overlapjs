@@ -7,15 +7,26 @@
     <title>OverlapJs</title>
 </head>
 <body>
-<div class="drag-container" style="height: 600px; padding-left: 100px; padding-top: 100px; position: relative">
-    <div class="overlap-bottom block"  style="background-color: red; left: 150px; top: 150px;"></div>
-    <div class="overlap-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>
+<!--<div class="drag-container" style="height: 600px; padding-left: 100px; padding-top: 100px; position: relative">-->
+<!--    <div class="overlap-bottom block"  style="background-color: red; left: 150px; top: 150px;"></div>-->
+<!--    <div class="overlap-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>-->
+<!--</div>-->
+
+<!--<div class="rotate-container" style="height: 600px; padding-left: 100px; padding-top: 100px; margin-bottom: 100px; position: relative">-->
+<!--    <div class="overlap2-bottom block"  style="background-color: red; left: 150px; top: 150px; transition: all 1s ease-out;"></div>-->
+<!--    <div class="overlap2-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>-->
+<!--</div>-->
+
+<div class="svg-drag-container" style="height: 600px; padding-left: 100px; padding-top: 100px; margin-bottom: 500px; position: relative">
+    <svg class="overlap3-bottom block"  style="left: 150px; top: 150px; border: 1px solid red;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 245">
+        <path d="m56,237 74-228 74,228L10,96h240"/>
+    </svg>
+    <div class="overlap3-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>
 </div>
 
-<div class="rotate-container" style="height: 600px; padding-left: 100px; padding-top: 100px; margin-bottom: 500px; position: relative">
-    <div class="overlap2-bottom block"  style="background-color: red; left: 150px; top: 150px; transition: all 1s ease-out;"></div>
-    <div class="overlap2-top block" style="background-color: blue; left: 20px; top: 20px; pointer-events: none;"></div>
-</div>
+<!--<div class="mask1">-->
+<!--    <img src="https://www.w3schools.com/css/img_5terre.jpg" alt="Cinque Terre" width="600" height="400">-->
+<!--</div>-->
 
 <script type="module" src="/src/main.ts"></script>
 </body>

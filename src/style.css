@@ -15,3 +15,9 @@
     box-shadow: 10px 5px 5px #000;
 }
 
+/*.mask1 {*/
+/*    -webkit-mask-image: url(https://www.w3schools.com/css/w3logo.png);*/
+/*    mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 245"> <path d="m56,237 74-228 74,228L10,96h240"/> </svg>');*/
+/*    -webkit-mask-repeat: no-repeat;*/
+/*    mask-repeat: no-repeat;*/
+/*}*/

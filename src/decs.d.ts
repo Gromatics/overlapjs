@@ -2,7 +2,7 @@ export interface OverlapConfig {
     container: string;
     topElement: string;
     bottomElement: string;
-    overlapStyle?: object;
+    overlapStyle?: Partial<CSSStyleDeclaration>;
     overlapClass?: string;
 }
 

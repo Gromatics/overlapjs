@@ -73,6 +73,29 @@ export class Overlap {
         }
     }
 
+    setSvg(bottomElement: HTMLElement) {
+        const newDiv = document.createElement("div");
+        newDiv.style.width = bottomElement.getBoundingClientRect().width + 'px';
+        newDiv.style.height = bottomElement.getBoundingClientRect().height + 'px';
+        const markup = new XMLSerializer().serializeToString(bottomElement);
+        const url = `data:image/svg+xml;charset=utf8,${encodeURIComponent(markup)}`;
+        newDiv.style.maskImage = `url('${url}')`;
+        newDiv.style.maskRepeat = 'no-repeat';
+        newDiv.style.maskPosition = 'center center';
+        const innerDiv = document.createElement("div");
+        innerDiv.style.width = bottomElement.getBoundingClientRect().width + 'px';
+        innerDiv.style.height = bottomElement.getBoundingClientRect().height + 'px';
+
+        if (this.config.overlapStyle) {
+            Object.keys(this.config.overlapStyle).forEach((key: string) => {
+                // @ts-ignore
+                innerDiv.style[key] = this.config.overlapStyle[key as keyof object];
+            });
+        }
+        newDiv.appendChild(innerDiv);
+        return newDiv;
+    }
+
     init() {
         this.containerElement = document.querySelector(this.config.container);
         if (this.containerElement) {
@@ -80,10 +103,19 @@ export class Overlap {
             this.bottomElement = this.containerElement.querySelector(this.config.bottomElement) as HTMLElement;
             if (this.topElement && this.bottomElement) {
                 this.topElement.style.overflow = 'hidden'
-                this.overlayDiv = this.overlayDiv ? this.overlayDiv : this.bottomElement.cloneNode(true) as HTMLElement;
-                this.overlayDiv.innerHTML = "";
-                this.overlayDiv.style.backgroundColor = '';
-                this.overlayDiv.style.backgroundImage = '';
+
+                if (this.bottomElement instanceof SVGElement) {
+                    //create a div with SVG layer mask
+                    this.overlayDiv = this.setSvg(this.bottomElement);
+                    this.topElement.appendChild(this.overlayDiv);
+                } else {
+                    this.overlayDiv = this.overlayDiv ? this.overlayDiv : this.bottomElement.cloneNode(true) as HTMLElement;
+                    this.overlayDiv.innerHTML = "";
+                    this.overlayDiv.style.backgroundColor = '';
+                    this.overlayDiv.style.backgroundImage = '';
+                }
+                this.overlayDiv.style.display = 'block';
+                this.overlayDiv.style.position = 'absolute';
             } else {
                 console.error(`${this.topElement} or ${this.bottomElement} was not found in the container (${this.config.container})`);
             }
@@ -92,35 +124,48 @@ export class Overlap {
         }
     }
 
+
     public render() {
         if (this.topElement && this.bottomElement && this.overlayDiv) {
             if (this.divOverlap(this.topElement, this.bottomElement)) {
 
-                //Add styles of parent
-                const cssArr = this.bottomElement.style.cssText.split(";");
-                cssArr.forEach((rule) => {
-                    const keyVal = rule.split(":");
-                    if(this.overlayDiv && keyVal.length == 2) {
-                        this.overlayDiv.style[keyVal[0].trim() as keyof object] = keyVal[1].trim();
-                    }
-                })
+                let overlayTop = '0';
+                let overlayLeft = '0';
 
-                if (this.config.overlapStyle) {
-                    Object.keys(this.config.overlapStyle).forEach((key: any) => {
-                        if (this.overlayDiv && this.config.overlapStyle) {
-                            this.overlayDiv.style[key as keyof object] = this.config.overlapStyle[key as keyof object];
+                if (this.bottomElement instanceof SVGElement) {
+                    overlayTop = `${this.bottomElement.getBoundingClientRect().y - this.topElement.getBoundingClientRect().y}px`;
+                    overlayLeft = `${this.bottomElement.getBoundingClientRect().x - this.topElement.getBoundingClientRect().x}px`;
+
+                } else {
+                    //Add styles of parent
+                    const cssArr = this.bottomElement.style.cssText.split(";");
+                    cssArr.forEach((rule) => {
+                        const keyVal = rule.split(":");
+                        if (this.overlayDiv && keyVal.length == 2) {
+                            this.overlayDiv.style[keyVal[0].trim() as keyof object] = keyVal[1].trim();
                         }
-                    });
-                }
+                    })
 
-                if (this.config.overlapClass) {
-                    this.overlayDiv.className += " " + this.config.overlapClass;
+                    if (this.config.overlapStyle) {
+                        Object.keys(this.config.overlapStyle).forEach((key: string) => {
+                            if (this.overlayDiv && this.config.overlapStyle) {
+                                // @ts-ignore
+                                this.overlayDiv.style[key] = this.config.overlapStyle[key as keyof object];
+                            }
+                        });
+                    }
+                    if (this.config.overlapClass) {
+                        this.overlayDiv.className += " " + this.config.overlapClass;
+                    }
+
+                    overlayTop = `${this.bottomElement.offsetTop - this.topElement.offsetTop}px`;
+                    overlayLeft = `${this.bottomElement.offsetLeft - this.topElement.offsetLeft}px`;
                 }
 
                 this.overlayDiv.style.display = 'block';
                 this.overlayDiv.style.position = 'absolute';
-                this.overlayDiv.style.top = `${this.bottomElement.offsetTop - this.topElement.offsetTop}px`;
-                this.overlayDiv.style.left = `${this.bottomElement.offsetLeft - this.topElement.offsetLeft}px`;
+                this.overlayDiv.style.top = overlayTop;
+                this.overlayDiv.style.left = overlayLeft;
 
                 if (!this.overlayDivInitialised) {
                     this.overlayDivInitialised = true;
