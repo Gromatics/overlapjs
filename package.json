@@ -1,7 +1,6 @@
 {
   "name": "overlap-js",
-  "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OverlapJs is a lightweight and versatile npm package designed to seamlessly blend and overlap two HTML div elements, allowing you to effortlessly integrate images or colors into the overlapping areas. ",
   "type": "module",
   "keywords": [
@@ -22,7 +21,8 @@
     }
   },
   "files": [
-    "/dist"
+    "/dist",
+    "/readme"
   ],
   "publishConfig": {
     "access": "public"

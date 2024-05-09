@@ -132,6 +132,7 @@ export class Overlap {
                 if (this.config.overlapStyle) {
                     Object.keys(this.config.overlapStyle).forEach((key: any) => {
                         if (this.overlayDiv && this.config.overlapStyle) {
+                            // @ts-ignore
                             this.overlayDiv.style[key as keyof object] = this.config.overlapStyle[key as keyof object];
                         }
                     });

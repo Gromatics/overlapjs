@@ -45,6 +45,16 @@ import { Overlap } from 'overlap-js';
 });
 ```
 
+## Configuration object
+| Key        | Type                                                                                                                                                          | Description                                                                                                                                                  | Required |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| container  | string | Attribute of container element                                                                                                                               | Yes                                                                                                                                                      |
+| topElement | string | Attribute of element (inside the container) where the bottom element is projected                                                                            | Yes         |
+| bottomElement | string | Attribute of element (inside the container) that will serve as the mask                                                                                      | Yes         |
+| overlapStyle | CSSStyleDeclaration | CSS style declaration object with styles for the overlap area. See [CSSStyleDeclaration](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration) | No          |
+| overlapClass | string | CSS classes for the overlap area                                                                                                                      | No          |
+
+
 ![Draggable](readme/rotating.gif)
 
 ## Contributing
@@ -53,5 +63,6 @@ Contributions are welcome! Feel free to open issues or submit pull requests on t
 ## License
 OverlapJs is licensed under the ISC License.
 
-## Currenly not supported
+## Work in progress
 - Scale on top and bottom element. If you want to use css scale, you can scale the container element
+- SVG support
